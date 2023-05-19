@@ -38,7 +38,8 @@ export default function PlayerPage() {
     return null;
   }
 
-  const { genre: correctGenre, id: trackId } = track;
+  const { genre: correctGenre } = track;
+  const trackId = "id" in track ? track.id : null;
   const answeredGenre = answeredGenres[currentPageIndex];
 
   return (
@@ -51,9 +52,11 @@ export default function PlayerPage() {
       {trackId ? (
         <Player trackId={trackId} />
       ) : (
-        <p>No track found for genre ${correctGenre} </p>
+        <p>
+          No track found for genre {correctGenre} or playlist not accessible.{" "}
+        </p>
       )}
-      {answeredGenre && (
+      {answeredGenre && trackId && (
         <AnswerResult
           isCorrect={correctGenre === answeredGenre}
           trackId={trackId}

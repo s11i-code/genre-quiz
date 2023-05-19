@@ -17,7 +17,7 @@ import { random } from "genre-quiz/utils/array";
 import { RootState } from "genre-quiz/store";
 
 export interface GameState {
-  tracks: Track[];
+  tracks: TrackAPISuccessResponse["tracks"];
   answeredGenres: Record<string, Genre>;
   currentPageIndex: number;
   loading: boolean;

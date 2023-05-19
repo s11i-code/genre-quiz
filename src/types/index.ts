@@ -1,25 +1,22 @@
 export const GENRES = [
-  "breakbeat",
-  "dance",
+  //"breakbeat",
+  //"detroit-techno",
+  //"chicago-house",
+  "electro-pop",
   "deep-house",
   "detroit-house",
-  "chicago-house",
   "progressive-house",
   "drum-and-bass",
-  "dub",
   "dubstep",
   "edm",
-  "electro",
   "hardstyle",
   "house",
   "idm",
   "minimal-techno",
-  "post-dubstep",
   "techno",
-  "detroit-techno",
   "trance",
   "trip-hop",
-  "electronica",
+  "uk-garage",
 ] as const;
 export type Genre = (typeof GENRES)[number];
 
@@ -29,12 +26,14 @@ export interface Track {
   genre: Genre;
 }
 
+// this is needed because the API may return null for a track if the playlist isn't found etc.
+type TrackOrNotFound = Track | { genre: Genre };
 export interface TrackAPIErrorResponse {
   message: string;
 }
 
 export interface TrackAPISuccessResponse {
-  tracks: Track[];
+  tracks: TrackOrNotFound[];
 }
 
 export type TrackAPIResponse = TrackAPIErrorResponse | TrackAPISuccessResponse;

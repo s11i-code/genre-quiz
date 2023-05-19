@@ -18,15 +18,20 @@ export default function Home() {
         Test your skills: can you spot the electronic music genre a song belongs
         to?
       </p>
+
       <p className="py-8">
-        <strong>Note:</strong> if you can&apos;t see the play button in the
-        widget, you need to make sure your browser allows third-party cookies.
-        (Or use Safari)
+        Genres and tracks come from Spotify Playlists. One playlist has been
+        chosen to represent a genre, and a random track is sampled from it. The
+        data may not always be 100% correct and sometimes overlapping genres may
+        be present as options.
       </p>
+
       <p>
-        Genres and classifications come from Spotify API Genres. Unfortunately
-        they contain many errors.
+        <strong>Note:</strong> if you can&apos;t see the play button in the
+        player widget, you need to make sure your browser allows third-party
+        cookies. (Or use Safari)
       </p>
+
       <p className="text-center pt-14">
         <Link className={`btn`} href={loading ? "" : "/player"}>
           Get Started

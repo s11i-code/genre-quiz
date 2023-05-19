@@ -1,3 +1,4 @@
+import { GENRE_PLAYLIST_IDS } from "genre-quiz/constants";
 import { GENRES } from "genre-quiz/types";
 import { Genre, TrackAPIResponse, Track } from "genre-quiz/types";
 import { intersect, random } from "genre-quiz/utils/array";
@@ -8,6 +9,10 @@ const spotifyApi = new SpotifyWebApi({
   clientId: "0f68a69b5519484e8495a67db08067d8",
   clientSecret: process.env.GENRE_SPOTTER_CLIENT_SECRET,
 });
+
+type SpotifyPlaylistResponse = Awaited<
+  ReturnType<typeof spotifyApi.getPlaylist>
+>;
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,35 +40,36 @@ export default async function handler(
   spotifyApi.setAccessToken(accessTokenResponse.body["access_token"]);
 
   const responses = await Promise.all(
-    genres.map((genre) => spotifyApi.searchTracks(`genre:${genre}`, {}))
+    genres.map((genre) => {
+      const playlistId = GENRE_PLAYLIST_IDS[genre];
+      return spotifyApi.getPlaylist(playlistId).catch((e) => {
+        console.log("dasdsadsa", genre);
+        return null;
+      });
+    })
   );
 
-  const tracks = responses
-    .map((resp, index) => {
-      const tracksForGenre = resp.body.tracks?.items?.map(
-        ({ id, artists, name }) => {
-          return { id, name };
-        }
-      );
+  const tracks = responses.map((resp, index) => {
+    const genre = genres[index];
+    const tracksForGenre = parseTracks(resp);
 
-      const genre = genres[index];
+    if (resp === null || !tracksForGenre || tracksForGenre.length === 0) {
+      return { genre };
+    }
 
-      if (tracksForGenre && tracksForGenre.length) {
-        // select one random track from a pool of search results:
-        const randomTrack = random(tracksForGenre || []);
+    // select one random track from a pool of search results:
+    const randomTrack = random(tracksForGenre || []);
 
-        return { id: randomTrack.id, name: randomTrack.name, genre };
-      }
-
-      // null if no tracks we're found.
-      return null;
-    })
-    // drop genres for which no tracks we're found
-    // TODO: maybe send {} instead? This would make more sense more API contract POV
-    // but lead to more UI emptiness checks
-    .filter((t): t is Track => t !== null);
+    return { id: randomTrack.id, name: randomTrack.name, genre };
+  });
 
   return res.status(200).json({ tracks });
+}
+
+function parseTracks(resp: SpotifyPlaylistResponse | null) {
+  return resp?.body?.tracks?.items?.flatMap(({ track }) =>
+    track ? [track] : []
+  );
 }
 
 function isGenre(genre: string): genre is Genre {
