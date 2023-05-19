@@ -1,11 +1,18 @@
+import { Genre } from "genre-quiz/types";
+
 export function AnswerResult({
-  isCorrect,
+  correctGenre,
+  answeredGenre,
   trackId,
 }: {
-  isCorrect: boolean;
+  answeredGenre: Genre;
+  correctGenre: Genre;
   trackId: string;
 }) {
-  const resultText = isCorrect ? "Your answer was correct!" : "Not correct ";
+  const resultText =
+    correctGenre == answeredGenre
+      ? "Your answer was correct!"
+      : `Not correct (${correctGenre} would have been correct)`;
 
   return (
     <section className="pt-4">

@@ -58,7 +58,8 @@ export default function PlayerPage() {
       )}
       {answeredGenre && trackId && (
         <AnswerResult
-          isCorrect={correctGenre === answeredGenre}
+          correctGenre={correctGenre}
+          answeredGenre={answeredGenre}
           trackId={trackId}
         />
       )}
