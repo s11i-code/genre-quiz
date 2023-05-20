@@ -43,7 +43,6 @@ export default async function handler(
     genres.map((genre) => {
       const playlistId = GENRE_PLAYLIST_IDS[genre];
       return spotifyApi.getPlaylist(playlistId).catch((e) => {
-        console.log("dasdsadsa", genre);
         return null;
       });
     })
