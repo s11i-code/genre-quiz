@@ -1,10 +1,8 @@
-import { GENRES } from "genre-quiz/types";
-import { Genre } from "genre-quiz/types";
-
 import { shuffle } from "genre-quiz/utils/array";
 import { useDispatch, useSelector } from "react-redux";
 import { addAnswer } from "genre-quiz/store/gameStateSlice";
 import { RootState } from "genre-quiz/store";
+import { Genre, GENRES } from "genre-quiz/constants/genres";
 
 export default function GenreOptions({
   correctGenre,

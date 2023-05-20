@@ -6,15 +6,14 @@ import {
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { GAME_LENGTH } from "genre-quiz/constants";
 import {
-  Genre,
   Track,
-  GENRES,
   TrackAPISuccessResponse,
   isTrackAPISuccessResponse,
 } from "genre-quiz/types";
 import { fetchTracksForGenres } from "genre-quiz/store/trackApi";
 import { random } from "genre-quiz/utils/array";
 import { RootState } from "genre-quiz/store";
+import { Genre, GENRES } from "genre-quiz/constants/genres";
 
 export interface GameState {
   tracks: TrackAPISuccessResponse["tracks"];
@@ -24,7 +23,7 @@ export interface GameState {
 }
 
 export const initializeGenreData = createAsyncThunk(
-  "users/fetchByIdStatus",
+  "initialize/genreData",
   async (_, thunkAPI) => {
     const correctGenres = getRandomGenres();
     const response = await thunkAPI.dispatch(

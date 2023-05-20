@@ -1,6 +1,5 @@
-import { GENRE_PLAYLIST_IDS } from "genre-quiz/constants";
-import { GENRES } from "genre-quiz/types";
-import { Genre, TrackAPIResponse, Track } from "genre-quiz/types";
+import { GENRES, GENRE_PLAYLIST_IDS, Genre } from "genre-quiz/constants/genres";
+import { TrackAPIResponse } from "genre-quiz/types";
 import { intersect, random } from "genre-quiz/utils/array";
 import type { NextApiRequest, NextApiResponse } from "next";
 import SpotifyWebApi from "spotify-web-api-node";

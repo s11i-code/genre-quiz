@@ -1,25 +1,4 @@
-export const GENRES = [
-  //"breakbeat",
-  //"detroit-techno",
-  //"chicago-house",
-  "electro pop",
-  "deep house",
-  "detroit house",
-  "progressive house",
-  "drum and bass",
-  "dubstep",
-  "edm",
-  "hardstyle",
-  "house",
-  "idm",
-  "minimal techno",
-  "techno",
-  "trance",
-  "trip hop",
-  "uk garage",
-  "afro house",
-] as const;
-export type Genre = (typeof GENRES)[number];
+import { Genre } from "genre-quiz/constants/genres";
 
 export interface Track {
   id: string;

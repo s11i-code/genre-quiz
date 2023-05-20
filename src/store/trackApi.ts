@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Genre, TrackAPIResponse } from "genre-quiz/types";
+import { Genre } from "genre-quiz/constants/genres";
+import { TrackAPIResponse } from "genre-quiz/types";
 
 export const trackApi = createApi({
   reducerPath: "trackApi",
