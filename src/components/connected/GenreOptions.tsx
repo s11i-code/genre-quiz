@@ -1,7 +1,9 @@
 import { shuffle } from "genre-quiz/utils/array";
 import { useDispatch, useSelector } from "react-redux";
-import { addAnswer } from "genre-quiz/store/gameStateSlice";
-import { RootState } from "genre-quiz/store";
+import {
+  addAnswer,
+  selectCurrentPageIndex,
+} from "genre-quiz/store/gameStateSlice";
 import { Genre, GENRES } from "genre-quiz/constants/genres";
 
 export default function GenreOptions({
@@ -10,9 +12,7 @@ export default function GenreOptions({
   correctGenre: Genre;
 }) {
   const dispatch = useDispatch();
-  const pageIndex = useSelector(
-    (state: RootState) => state.gameState.currentPageIndex
-  );
+  const pageIndex = useSelector(selectCurrentPageIndex);
   function submitAnswer(genre: Genre) {
     dispatch(addAnswer({ pageIndex, genre }));
   }

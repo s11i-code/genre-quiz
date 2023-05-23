@@ -1,15 +1,14 @@
-import { AppDispatch, RootState } from "genre-quiz/store";
-import { initializeGenreData } from "genre-quiz/store/gameStateSlice";
+import { AppDispatch } from "genre-quiz/store";
+import { fetchTrackData } from "genre-quiz/store/gameStateSlice";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
-  const loading = useSelector((state: RootState) => state.gameState.loading);
 
   useEffect(() => {
-    dispatch(initializeGenreData());
+    dispatch(fetchTrackData());
   }, [dispatch]);
 
   return (
@@ -33,9 +32,9 @@ export default function Home() {
       </p>
 
       <p className="text-center pt-14">
-        <Link className={`btn`} href={loading ? "" : "/player"}>
+        <Link className="btn" href={"/player"}>
           Get Started
-        </Link>{" "}
+        </Link>
       </p>
     </section>
   );

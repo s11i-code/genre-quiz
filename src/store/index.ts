@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import gameStateReducer from "./gameStateSlice";
+import gameStateReducer, { persistGameStateMiddleware } from "./gameStateSlice";
 import { trackApi } from "genre-quiz/store/trackApi";
 
 export const store = configureStore({
@@ -10,7 +10,9 @@ export const store = configureStore({
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat(trackApi.middleware);
+    return getDefaultMiddleware()
+      .concat(trackApi.middleware)
+      .concat(persistGameStateMiddleware);
   },
 });
 

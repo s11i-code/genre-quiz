@@ -1,1 +1,1 @@
-export const GAME_LENGTH = 5 as const;
+export const GAME_LENGTH = 10 as const;

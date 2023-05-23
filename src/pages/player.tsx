@@ -1,54 +1,39 @@
 import Player from "genre-quiz/components/Player";
-import { RootState } from "genre-quiz/store";
-import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import GenreOptions from "genre-quiz/components/connected/GenreOptions";
 import NextTrackLink from "genre-quiz/components/connected/NextTrackLink";
-import { GAME_LENGTH } from "genre-quiz/constants";
 import { AnswerResult } from "genre-quiz/components/AnswerResult";
-
-function useGameStateLogic() {
-  const { tracks, currentPageIndex } = useSelector(
-    (state: RootState) => state.gameState
-  );
-  const isInitialized = tracks.length > 0;
-  const isFinished = currentPageIndex > GAME_LENGTH - 1;
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isInitialized) {
-      router.push("/");
-    }
-    if (isFinished) {
-      router.push("/result");
-    }
-  }, [isInitialized, router, isFinished]);
-  return { isInitialized, isFinished };
-}
+import {
+  selectAnsweredGenres,
+  selectCurrentPageIndex,
+  selectTracks,
+} from "genre-quiz/store/gameStateSlice";
+import { useGameLifeCycle } from "genre-quiz/store/hooks";
 
 export default function PlayerPage() {
-  const { currentPageIndex, answeredGenres, tracks } = useSelector(
-    (state: RootState) => state.gameState
-  );
-  const track = tracks[currentPageIndex];
+  const currentPageIndex = useSelector(selectCurrentPageIndex);
+  const answeredGenres = useSelector(selectAnsweredGenres);
+  const tracks = useSelector(selectTracks);
+  const phase = useGameLifeCycle();
 
-  const { isInitialized, isFinished } = useGameStateLogic();
-  if (!isInitialized || isFinished) {
+  if (phase === "loading") {
+    return <span>Loading</span>;
+  }
+
+  if (phase !== "playable") {
     return null;
   }
 
-  const { genre: correctGenre } = track;
+  // using ! here because the lifecycle checks above verify that tracks have been fetched.
+  // track should never be undefined (it can be not found though :) ).
+  // If it is undefined, it's a bug so let things crash and burn.
+  const track = tracks[currentPageIndex];
   const trackId = "id" in track ? track.id : null;
+  const { genre: correctGenre } = track;
   const answeredGenre = answeredGenres[currentPageIndex];
 
   return (
     <div className="min-h-screen flex-1	">
-      {/* Page: {currentPageIndex} <br />
-      Correct: {correctGenre} <br />
-      Answered:{answeredGenre} <br />
-      TrackId: {trackId} */}
-
       {trackId ? (
         <Player trackId={trackId} />
       ) : (
