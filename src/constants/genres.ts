@@ -40,7 +40,7 @@ export const GENRE_PLAYLIST_IDS: Record<Genre, string> = {
   "detroit house": "3kTp9OY5VZODroxNgAsZum",
   "uk garage": "37i9dQZF1DX0RJRF55W5lt",
   "afro house": "6znL9OMTh5JBeSKB11Yyti",
-  "electro swing": "37i9dQZF1DX3bH0P2uDnWA",
+  "electro swing": "30qHbJ92DhE2XgDGoP6wZk",
 };
 
 export const GENRE_WIKIPEDIA_ENTRIES: Record<Genre, string | null> = {
