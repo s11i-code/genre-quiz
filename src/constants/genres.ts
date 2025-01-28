@@ -36,7 +36,7 @@ export const GENRE_PLAYLIST_IDS: Record<Genre, string> = {
   "deep house": "6vDGVr652ztNWKZuHvsFvx",
   hardstyle: "37i9dQZF1DX0pH2SQMRXnC",
   techno: "7mwPa6HjqoiUrsk3C2Hitk",
-  "minimal techno": "6yUIpOBRbwNxUwJB0Q2BFH",
+  "minimal techno": "2HlUI4IlYmmrt8DkE5S7Rv",
   "detroit house": "3kTp9OY5VZODroxNgAsZum",
   "uk garage": "37i9dQZF1DX0RJRF55W5lt",
   "afro house": "6znL9OMTh5JBeSKB11Yyti",
